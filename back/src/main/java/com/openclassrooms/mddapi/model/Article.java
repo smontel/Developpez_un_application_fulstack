@@ -1,28 +1,33 @@
 package com.openclassrooms.mddapi.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.List;
 
-@Entity
-@Table(name="db_user")
-@Data
-@EntityListeners(AuditingEntityListener.class)
-public class DBUser {
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @NotNull
+    private String title;
 
-    private String email;
+    @NotNull
+    private String content;
 
-    private String password;
+    @OneToOne
+    @JoinColumn(name = "theme_id", referencedColumnName = "id")
+    private List<Theme> themes;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User author;
 
     @CreatedDate
     @Column(name="created_at", updatable = false)
@@ -31,4 +36,5 @@ public class DBUser {
     @LastModifiedDate
     @Column(name="updated_at")
     private LocalDate updatedAt;
+
 }

@@ -1,37 +1,28 @@
 package com.openclassrooms.mddapi.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.NonNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name="db_user")
 @Data
-@EntityListeners(AuditingEntityListener.class)
-public class User {
+@Entity
+@Table(name = "messages")
+public class Commentary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
-    @Size(max = 20)
-    private String name;
+    @Column(name="article_id")
+    private int articleId;
 
-    @NonNull
-    @Size(max = 50)
-    @Email
-    private String email;
 
-    @NonNull
-    private String password;
+    private User author;
+
+    private String message;
 
     @CreatedDate
     @Column(name="created_at", updatable = false)

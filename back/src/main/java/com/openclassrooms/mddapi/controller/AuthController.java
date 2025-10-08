@@ -6,7 +6,7 @@ import com.openclassrooms.mddapi.DTO.RegisterDTO;
 import com.openclassrooms.mddapi.DTO.TokenDTO;
 import com.openclassrooms.mddapi.DTO.UserDTO;
 import com.openclassrooms.mddapi.mapper.UserMapper;
-import com.openclassrooms.mddapi.model.DBUser;
+import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.CustomUserDetailsService;
 import com.openclassrooms.mddapi.service.UserService;
@@ -89,8 +89,8 @@ public class AuthController {
             @ApiResponse(responseCode = "401", description = "Token JWT invalide ou manquant")
     })
     public UserDTO getUserWithJWT(Principal principal){
-        DBUser dbUser = userService.getUserByMail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        UserDTO userDTO = userMapper.toDTO(dbUser);
+        User user = userService.getUserByMail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserDTO userDTO = userMapper.toDTO(user);
         return userDTO;
     }
 
