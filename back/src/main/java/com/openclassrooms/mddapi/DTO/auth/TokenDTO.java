@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.DTO;
+package com.openclassrooms.mddapi.DTO.auth;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

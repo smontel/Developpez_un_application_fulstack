@@ -4,8 +4,7 @@ package com.openclassrooms.mddapi.service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import com.openclassrooms.mddapi.DTO.LoginDTO;
-import org.springframework.security.core.Authentication;
+import com.openclassrooms.mddapi.DTO.auth.LoginDTO;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;

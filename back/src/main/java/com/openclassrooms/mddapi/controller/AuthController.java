@@ -1,10 +1,10 @@
 package com.openclassrooms.mddapi.controller;
 
 
-import com.openclassrooms.mddapi.DTO.LoginDTO;
-import com.openclassrooms.mddapi.DTO.RegisterDTO;
-import com.openclassrooms.mddapi.DTO.TokenDTO;
-import com.openclassrooms.mddapi.DTO.UserDTO;
+import com.openclassrooms.mddapi.DTO.auth.LoginDTO;
+import com.openclassrooms.mddapi.DTO.auth.RegisterDTO;
+import com.openclassrooms.mddapi.DTO.auth.TokenDTO;
+import com.openclassrooms.mddapi.DTO.auth.UserDTO;
 import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
