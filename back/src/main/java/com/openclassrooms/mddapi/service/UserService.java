@@ -41,28 +41,13 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Theme not found with id: " + themeId));
 
         if (user.getSubscribedThemes() != null && user.getSubscribedThemes().contains(theme)) {
-            throw new RuntimeException("User is already subscribed to this theme");
+            user.getSubscribedThemes().remove(theme);
+        }
+        else{
+            user.getSubscribedThemes().add(theme);
         }
 
-        user.getSubscribedThemes().add(theme);
         userRepository.save(user);
     }
-
-
-    public void unsubscribeFromTheme(Long userId, Long themeId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-
-        Theme theme = themeRepository.findById(themeId)
-                .orElseThrow(() -> new RuntimeException("Theme not found with id: " + themeId));
-
-        if (user.getSubscribedThemes() == null || !user.getSubscribedThemes().contains(theme)) {
-            throw new RuntimeException("User is not subscribed to this theme");
-        }
-
-        user.getSubscribedThemes().remove(theme);
-        userRepository.save(user);
-    }
-
 
 }

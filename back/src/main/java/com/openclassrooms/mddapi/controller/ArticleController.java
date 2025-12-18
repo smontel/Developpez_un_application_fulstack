@@ -32,11 +32,17 @@ public class ArticleController {
     private final UserService userService;
 
     private final ArticleMapper articleMapper;
-//
-//
-//    @PostMapping
-//    public ResponseEntity<ArticleDetailDTO> createArticle(@Valid @RequestBody ArticleDetailDTO articleDetailDto) {}
-//
+
+
+    @PostMapping("")
+    public ResponseEntity<String> createArticle(@Valid @RequestBody ArticleCreateDTO articleCreateDto, Principal principal) {
+        User user = userService.getUserByMail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        articleService.create(articleCreateDto, user);
+
+        return ResponseEntity.ok("Article créé avec succès");
+    }
+
     @GetMapping("")
     @Operation(summary = "", description = "Récupère tout les articles en base de donnée")
     @SecurityRequirement(name = "bearerAuth")

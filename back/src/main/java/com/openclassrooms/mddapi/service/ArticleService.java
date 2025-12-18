@@ -33,8 +33,8 @@ public class ArticleService {
     private final ArticleMapper articleMapper;
 
 
-    public Article create(ArticleCreateDTO dto, UserDetails userDetails) {
-        String email = userDetails.getUsername();
+    public Article create(ArticleCreateDTO dto, User user) {
+        String email = user.getEmail();
         User author = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException(
                         "Utilisateur non trouvé avec l'email : " + email
