@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.DTO;
+package com.openclassrooms.mddapi.DTO.commentary;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

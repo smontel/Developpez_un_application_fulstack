@@ -1,7 +1,9 @@
 package com.openclassrooms.mddapi.service;
 
-import com.openclassrooms.mddapi.DTO.MessageResponseDTO;
+import com.openclassrooms.mddapi.DTO.commentary.CommentaryRequest;
+import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.Commentary;
+import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.CommentaryRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +18,20 @@ public class CommentaryService {
     @Autowired
     private CommentaryRepository commentaryRepository;
 
-    public Optional<Commentary> getMessage(Long id){ return commentaryRepository.findById(id); }
-
-    public MessageResponseDTO deleteMessage( Long id ){
-        MessageResponseDTO messageSuccess = new MessageResponseDTO();
-        messageSuccess.setMessage("Message deleted with success!");
-        commentaryRepository.deleteById(id);
-        return messageSuccess;
+    public Optional<Commentary> getMessage(Long id){
+        return commentaryRepository.findById(id);
     }
 
-    public MessageResponseDTO saveMessage(Commentary messageArticle){
-        MessageResponseDTO messageSuccess = new MessageResponseDTO();
-        messageSuccess.setMessage("Message send with success!");
-        commentaryRepository.save(messageArticle);
-        return messageSuccess;
+    public void deleteMessage( Long id ){
+        commentaryRepository.deleteById(id);
+    }
+
+    public Commentary saveMessage(CommentaryRequest commentaryRequest, User author, Article article){
+
+        Commentary commentary = new Commentary();
+        commentary.setMessage(commentaryRequest.getMessage());
+        commentary.setArticle(article);
+        commentary.setAuthor(author);
+        return commentaryRepository.save(commentary);
     }
 }

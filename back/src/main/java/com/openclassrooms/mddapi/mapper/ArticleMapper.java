@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.mapper;
 import com.openclassrooms.mddapi.DTO.article.ArticleCreateDTO;
 import com.openclassrooms.mddapi.DTO.article.ArticleDetailDTO;
 import com.openclassrooms.mddapi.DTO.article.ArticleListDTO;
-import com.openclassrooms.mddapi.DTO.CommentaryDTO;
+import com.openclassrooms.mddapi.DTO.commentary.CommentaryDTO;
 import com.openclassrooms.mddapi.DTO.ThemeDTO;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.Commentary;
@@ -75,6 +75,7 @@ public class ArticleMapper {
                     .map(theme -> {
                         ThemeDTO iterationDTO = new ThemeDTO();
                         iterationDTO.setName(theme.getName());
+                        iterationDTO.setId(theme.getId());
                         return iterationDTO;
                     })
                     .collect(Collectors.toList());

@@ -40,7 +40,7 @@ public class Article {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "author_id")
     private User author;
 
     @CreatedDate

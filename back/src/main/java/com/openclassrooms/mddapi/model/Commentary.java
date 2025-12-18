@@ -32,4 +32,8 @@ public class Commentary {
     @LastModifiedDate
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
 }

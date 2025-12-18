@@ -33,9 +33,7 @@ public class ArticleService {
     private final ArticleMapper articleMapper;
 
 
-
-    //Créer un nouvel article
-    public ArticleDetailDTO create(ArticleCreateDTO dto, UserDetails userDetails) {
+    public Article create(ArticleCreateDTO dto, UserDetails userDetails) {
         String email = userDetails.getUsername();
         User author = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException(
@@ -52,24 +50,39 @@ public class ArticleService {
         article.setAuthor(author);
         article.setThemes(themes);
 
-        Article savedArticle = articleRepository.save(article);
+        return articleRepository.save(article);
 
-        return articleMapper.toDetailDto(savedArticle);
     }
 
-    //Récupère un article détaillé ( avec les commentaires et les informations de l'auteur)
+    public Article update(Long id, ArticleCreateDTO dto){
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Article non trouvé avec l'id : " + id
+                ));
+        List<Theme> themes = themeRepository.findAllById(dto.getThemeIds());
+
+        if (themes.size() != dto.getThemeIds().size()) {
+            throw new IllegalArgumentException("Un ou plusieurs thèmes sont invalides");
+        }
+
+        article.setTitle(dto.getTitle());
+        article.setContent(dto.getContent());
+        article.setThemes(themes);
+
+        return articleRepository.save(article);
+    }
+
     @Transactional(readOnly = true)
-    public ArticleDetailDTO findDetailById(Long id) {
-        Article article = articleRepository.getReferenceById(id);
-        return articleMapper.toDetailDto(article);
+    public Article findDetailById(Long id) {
+        return articleRepository.getReferenceById(id);
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleListDTO> findAll() {
-        List<Article> articles = articleRepository.findAll();
-        return articleMapper.toListDtoList(articles);
+    public List<Article> findAll() {
+        return articleRepository.findAll();
     }
 
+    public void deleteArticle( Long id ){ articleRepository.deleteById(id);}
 
     // ========== Feed personnalisé ==========
 

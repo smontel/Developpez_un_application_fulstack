@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.DTO.article;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.openclassrooms.mddapi.DTO.CommentaryDTO;
+import com.openclassrooms.mddapi.DTO.commentary.CommentaryDTO;
 import com.openclassrooms.mddapi.DTO.ThemeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;

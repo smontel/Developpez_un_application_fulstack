@@ -63,7 +63,6 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    // @Operation(summary = "Inscription utilisateur", description = "Crée un nouveau compte utilisateur")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Inscription réussie"),
             @ApiResponse(responseCode = "400", description = "Données invalides")
