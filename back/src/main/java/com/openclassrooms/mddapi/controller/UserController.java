@@ -8,8 +8,11 @@ import com.openclassrooms.mddapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/user")
@@ -30,9 +33,14 @@ public class UserController {
         return userMapper.toDTO(user);
     }
 
-    @PostMapping("/subscribe/{id}")
+    @PostMapping("/subscribe/{themeid}")
     @SecurityRequirement(name="bearerAuth")
-    public ResponseEntity<String> subscribe
+    public ResponseEntity<String> subscribe(Principal principal, @PathVariable Long themeid){
+        User user = userService.getUserByMail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return ResponseEntity.ok(userService.subscribeToTheme(user.getId(), themeid));
+
+    }
 
 
 }

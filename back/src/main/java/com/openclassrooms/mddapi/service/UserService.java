@@ -33,21 +33,26 @@ public class UserService {
 
     public Iterable<User> getUsers() {return userRepository.findAll(); }
 
-    public void subscribeToTheme(Long userId, Long themeId) {
+    public String subscribeToTheme(Long userId, Long themeId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
         Theme theme = themeRepository.findById(themeId)
                 .orElseThrow(() -> new RuntimeException("Theme not found with id: " + themeId));
 
+        String response;
         if (user.getSubscribedThemes() != null && user.getSubscribedThemes().contains(theme)) {
             user.getSubscribedThemes().remove(theme);
+            response = "Désinscription avec succès";
         }
         else{
             user.getSubscribedThemes().add(theme);
+            response = "Inscription avec succès";
         }
 
         userRepository.save(user);
+
+        return response;
     }
 
 }

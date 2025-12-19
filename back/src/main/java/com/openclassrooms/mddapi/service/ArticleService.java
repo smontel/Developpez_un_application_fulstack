@@ -88,7 +88,7 @@ public class ArticleService {
 
 
 //    @Transactional(readOnly = true)
-//    public Page<ArticleListDTO> getPersonalizedFeed(UserDetails userDetails, Pageable pageable) {
+//    public List<ArticleListDTO> getPersonalizedFeed(UserDetails userDetails, Pageable pageable) {
 //
 //        User user = getUserByEmail(userDetails.getUsername());
 //
