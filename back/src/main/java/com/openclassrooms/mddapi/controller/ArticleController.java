@@ -86,8 +86,11 @@ public class ArticleController {
         }
     }
 
-//    @GetMapping("/feed")
-//    public ResponseEntity<List<ArticleDetailDTO>> getPersonalizedFeed(@AuthenticationPrincipal UserDetails userDetails) {}
-//
+    @GetMapping("/feed")
+    public ResponseEntity<List<ArticleListDTO>> getPersonalizedFeed( Principal principal) {
+        User user = userService.getUserByMail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return ResponseEntity.ok(articleService.getPersonalizedFeed(user));
+    }
+
 
 }

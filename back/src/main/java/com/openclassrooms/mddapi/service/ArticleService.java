@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,25 +88,25 @@ public class ArticleService {
     // ========== Feed personnalisé ==========
 
 
-//    @Transactional(readOnly = true)
-//    public Page<ArticleListDTO> getPersonalizedFeed(UserDetails userDetails, Pageable pageable) {
-//
-//        User user = getUserByEmail(userDetails.getUsername());
-//
-//        List<Long> subscribedThemeIds = user.getSubscribedThemes()
-//                .stream()
-//                .map(Theme::getId)
-//                .collect(Collectors.toList());
-//
-//        if (subscribedThemeIds.isEmpty()) {
-//            return Page.empty(pageable);
-//        }
-//
-//        Page<Article> articles = articleRepository.findByThemesIdIn(subscribedThemeIds, pageable);
-//
-//        return articles.map(articleMapper::toListDto);
-//    }
-//
+    @Transactional(readOnly = true)
+    public List<ArticleListDTO> getPersonalizedFeed(User user) {
+
+        List<Long> subscribedThemeIds = user.getSubscribedThemes()
+                .stream()
+                .map(Theme::getId)
+                .collect(Collectors.toList());
+
+        if (subscribedThemeIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Article> articles = articleRepository.findByThemesIdIn(subscribedThemeIds);
+
+        return articles.stream()
+                .map(articleMapper::toListDto)
+                .collect(Collectors.toList());
+    }
+
 //    // ========== Méthodes utilitaires ==========
 //
 //    @Transactional(readOnly = true)
