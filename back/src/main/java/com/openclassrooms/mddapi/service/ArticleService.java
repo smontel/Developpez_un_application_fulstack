@@ -85,8 +85,6 @@ public class ArticleService {
 
     public void deleteArticle( Long id ){ articleRepository.deleteById(id);}
 
-    // ========== Feed personnalisé ==========
-
 
     @Transactional(readOnly = true)
     public List<ArticleListDTO> getPersonalizedFeed(User user) {
@@ -107,47 +105,5 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-//    // ========== Méthodes utilitaires ==========
-//
-//    @Transactional(readOnly = true)
-//    public boolean existsById(Long id) {
-//        return articleRepository.existsById(id);
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public long count() {
-//        return articleRepository.count();
-//    }
-//
-//
-//    @Transactional(readOnly = true)
-//    public Page<ArticleListDTO> findByTheme(Long themeId, Pageable pageable) {
-//        Page<Article> articles = articleRepository.findByThemesId(themeId, pageable);
-//        return articles.map(articleMapper::toListDto);
-//    }
-//
-//    // ========== Méthodes privées (helpers) ==========
-//
-//
-//    private Article getArticleById(Long id) {
-//        return articleRepository.findById(id)
-//                .orElseThrow(() -> new ArticleNotFoundException(
-//                        "Article non trouvé avec l'id : " + id
-//                ));
-//    }
-//
-//    private User getUserByEmail(String email) {
-//        return userRepository.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException(
-//                        "Utilisateur non trouvé avec l'email : " + email
-//                ));
-//    }
-//
-//    private void checkOwnership(Article article, UserDetails userDetails) {
-//        if (!article.getAuthor().getEmail().equals(userDetails.getUsername())) {
-//            throw new UnauthorizedException(
-//                    "Vous n'êtes pas autorisé à effectuer cette action sur cet article"
-//            );
-//        }
-   // }
+
 }

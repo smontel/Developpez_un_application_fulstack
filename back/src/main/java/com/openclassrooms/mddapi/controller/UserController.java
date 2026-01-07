@@ -32,6 +32,7 @@ public class UserController {
         return userMapper.toDTO(user);
     }
 
+<<<<<<< HEAD
     @PostMapping("/subscribe/{themeId}")
     @SecurityRequirement(name="bearerAuth")
     public ResponseEntity<String> subscribe(Principal principal, @PathVariable Long themeId){
@@ -41,6 +42,15 @@ public class UserController {
         userService.subscribeToTheme(user.getId(), themeId);
 
         return ResponseEntity.ok("Souscription réussi");
+=======
+    @PostMapping("/subscribe/{themeid}")
+    @SecurityRequirement(name="bearerAuth")
+    public ResponseEntity<String> subscribe(Principal principal, @PathVariable Long themeid){
+        User user = userService.getUserByMail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return ResponseEntity.ok(userService.subscribeToTheme(user.getId(), themeid));
+
+>>>>>>> 1dd0776529ae025d0c34f6d02315d7083b0afd94
     }
 
 
