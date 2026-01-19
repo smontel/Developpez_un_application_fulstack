@@ -1,1 +1,70 @@
-<p>login works!</p>
+<div class="login-container">
+
+  <app-header [showMenu]="false"></app-header>
+
+
+  
+    <mat-icon class="navigation-button material-icons md-18" (click)="navigateTo('/')">arrow_back</mat-icon>
+
+
+
+  <!-- Contenu de connexion -->
+  <div class="login-content">   
+    <div class="login-card">
+      <h2>Se connecter</h2>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Champ Email -->
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input 
+            type="email" 
+            id="email"
+            formControlName="email" 
+            class="form-control"
+            [class.is-invalid]="submitted && f['email'].errors"
+          />
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">L'email est requis</div>
+            <div *ngIf="f['email'].errors['email']">L'email n'est pas valide</div>
+          </div>
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input 
+            type="password" 
+            id="password"
+            formControlName="password" 
+            class="form-control"
+            [class.is-invalid]="submitted && f['password'].errors"
+          />
+          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+            <div *ngIf="f['password'].errors['required']">Le mot de passe est requis</div>
+            <div *ngIf="f['password'].errors['minlength']">Le mot de passe doit contenir au moins 6 caractères</div>
+          </div>
+        </div>
+
+        <!-- Message d'erreur -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button 
+          type="submit" 
+          class="btn btn-primary btn-block"
+          [disabled]="loading"
+        >
+          <span *ngIf="loading" class="spinner"></span>
+          <span *ngIf="!loading">Se connecter</span>
+          <span *ngIf="loading">Connexion...</span>
+        </button>
+      </form>
+
+      <!-- Lien vers inscription -->
+
+    </div>
+  </div>
+</div>

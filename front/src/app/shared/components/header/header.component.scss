@@ -1,0 +1,148 @@
+.header-banner {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Logo
+.logo {
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .logo-text {
+    height: 100%;
+    color: #7c6fb0;
+    letter-spacing: 1px;
+  }
+}
+
+// Menu de navigation
+.nav-menu {
+  display: flex;
+  gap: 30px;
+  flex: 1;
+  justify-content: center;
+
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    position: relative;
+
+    &:hover {
+      color: #7c6fb0;
+      background: rgba(124, 111, 176, 0.05);
+    }
+
+    &.active {
+      color: #7c6fb0;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #7c6fb0;
+      }
+    }
+  }
+}
+
+// Actions utilisateur
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .user-name {
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .btn-logout {
+    padding: 8px 16px;
+    background: transparent;
+    color: #7c6fb0;
+    border: 1px solid #7c6fb0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #7c6fb0;
+      color: white;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .header-content {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+    overflow-x: auto;
+    
+    .nav-link {
+      white-space: nowrap;
+      
+      &.active::after {
+        bottom: -12px;
+      }
+    }
+  }
+
+  .user-actions {
+    .user-name {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .logo .logo-text {
+    font-size: 24px;
+  }
+
+  .nav-menu {
+    gap: 10px;
+    
+    .nav-link {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+  }
+}

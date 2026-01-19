@@ -1,0 +1,32 @@
+<header class="header-banner">
+  <div class="header-content">
+    <!-- Logo -->
+    <div class="logo" (click)="navigateTo('/')">
+        <img src="/assets/logo_p6.png" alt="logo" />
+    </div>
+
+    <!-- Menu de navigation (visible uniquement si connecté) -->
+    <nav *ngIf="showMenu && isAuthenticated" class="nav-menu">
+      <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+        Accueil
+      </a>
+      <a class="nav-link" routerLink="/articles" routerLinkActive="active">
+        Articles
+      </a>
+      <a class="nav-link" routerLink="/themes" routerLinkActive="active">
+        Thèmes
+      </a>
+      <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+        Profil
+      </a>
+    </nav>
+
+    <!-- Actions utilisateur -->
+    <div *ngIf="isAuthenticated" class="user-actions">
+      <span class="user-name">{{ currentUser?.username }}</span>
+      <button class="btn-logout" (click)="logout()">
+        Déconnexion
+      </button>
+    </div>
+  </div>
+</header>

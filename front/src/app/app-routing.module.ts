@@ -2,30 +2,29 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 
-// consider a guard combined with canLoad / canActivate route option
-// to manage unauthenticated user to access private routes
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () =>
-      import('./features/auth/auth.module').then(m => m.AuthModule)
+    path: '',
+    redirectTo: 'mdd',
+    pathMatch: 'full'
   },
   {
     path: '',
-    canActivate: [AuthGuard],
-    children: [
-      {
-      }
-    ]
+    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   },
-  { path: '**', redirectTo: 'dashboard' }
+  {
+    path: 'mdd',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./features/mdd/mdd.module').then(m => m.MddModule)
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {
-  
-}
+export class AppRoutingModule { }
