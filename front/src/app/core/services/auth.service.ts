@@ -5,8 +5,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { TokenService } from './token.service';
-import { User } from '../models/user.model';
-import { AuthResponse, LoginCredentials, RegisterData } from '../models/auth-response.model';
+import { User } from '../../shared/models/user.model';
+import { AuthResponse, LoginCredentials, RegisterData } from '../../shared/models/auth-response.model';
 
 @Injectable({
   providedIn: 'root'
