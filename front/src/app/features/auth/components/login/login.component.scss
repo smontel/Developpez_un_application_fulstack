@@ -14,6 +14,58 @@
   }
 }
 
+.register-header {
+  background: white;
+  border-bottom: 2px solid #00BCD4;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #7c6fb0;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .logo-bubble-small {
+      width: 32px;
+      height: 32px;
+      background: #7c6fb0;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      background: #7c6fb0;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+  }
+}
 // Contenu principal centré
 .login-content {
   flex: 1;

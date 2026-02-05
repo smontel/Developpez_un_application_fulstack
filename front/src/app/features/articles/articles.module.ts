@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleListComponent } from './article-list/article-list.component';
-import { ArticleCardComponent } from './article-card/article-card.component';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
-import { ArticleCreationComponent } from './article-creation/article-creation.component';
+import { ArticleListComponent } from './components/article-list/article-list.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
+import { ArticleCreationComponent } from './components/article-creation/article-creation.component';
 
 
 

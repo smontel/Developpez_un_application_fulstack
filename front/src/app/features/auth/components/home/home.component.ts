@@ -14,6 +14,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateTo(route: String): void {
-    this.router.navigate([route]);
+    this.router.navigate(['auth/', route]);
   }
 }

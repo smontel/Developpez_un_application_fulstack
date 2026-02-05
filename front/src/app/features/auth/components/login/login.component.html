@@ -1,12 +1,16 @@
 <div class="login-container">
 
-  <app-header [showMenu]="false"></app-header>
-
-
-  
-    <mat-icon class="navigation-button material-icons md-18" (click)="navigateTo('/')">arrow_back</mat-icon>
-
-
+  <header class="register-header">
+    <button class="back-button" (click)="navigateTo('/')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <div class="header-logo">
+      <div class="logo-bubble-small"></div>
+      <span class="logo-text">MDD</span>
+    </div>
+  </header>
 
   <!-- Contenu de connexion -->
   <div class="login-content">   

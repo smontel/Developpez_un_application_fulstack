@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
   
   
   navigateTo(route: string): void {
-    this.router.navigate([route]);
+    this.router.navigate(['/auth',route]);
   }
 
 }
