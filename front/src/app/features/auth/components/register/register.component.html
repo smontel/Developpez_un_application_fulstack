@@ -20,17 +20,17 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <!-- Champ Nom d'utilisateur -->
         <div class="form-group">
-          <label for="username">Nom d'utilisateur</label>
+          <label for="name">Nom d'utilisateur</label>
           <input 
             type="text" 
-            id="username"
-            formControlName="username" 
+            id="name"
+            formControlName="name" 
             class="form-control"
-            [class.is-invalid]="submitted && f['username'].errors"
+            [class.is-invalid]="submitted && f['name'].errors"
           />
-          <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-            <div *ngIf="f['username'].errors['required']">Le nom d'utilisateur est requis</div>
-            <div *ngIf="f['username'].errors['minlength']">Le nom d'utilisateur doit contenir au moins 3 caractères</div>
+          <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors['required']">Le nom d'utilisateur est requis</div>
+            <div *ngIf="f['name'].errors['minlength']">Le nom d'utilisateur doit contenir au moins 3 caractères</div>
           </div>
         </div>
 

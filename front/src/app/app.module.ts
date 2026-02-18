@@ -7,19 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { DashboardComponent } from './layouts/dashboard/dashboard.component';
+import { SharedModule } from './shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     {
