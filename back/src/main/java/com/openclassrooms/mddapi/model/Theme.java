@@ -18,4 +18,6 @@ public class Theme {
     @NotNull
     private String name;
 
+    private String description;
+
 }

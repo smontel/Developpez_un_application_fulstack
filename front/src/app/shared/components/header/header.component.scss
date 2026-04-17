@@ -1,6 +1,9 @@
+$purple: #7C3AED;
+$red: #E53935;
+
 .header-banner {
   background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0e0e0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -10,139 +13,162 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 30px;
+  padding: 12px 24px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-// Logo
 .logo {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 40px;
+    width: auto;
+  }
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $purple;
+  }
+
+  &.active {
+    color: $purple;
+  }
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: $red;
+  font-family: inherit;
+  padding: 0;
   transition: opacity 0.2s;
 
   &:hover {
-    opacity: 0.8;
-  }
-
-  .logo-text {
-    height: 100%;
-    color: #7c6fb0;
-    letter-spacing: 1px;
+    opacity: 0.75;
   }
 }
 
-// Menu de navigation
-.nav-menu {
-  display: flex;
-  gap: 30px;
-  flex: 1;
-  justify-content: center;
-
-  .nav-link {
-    color: #333;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: all 0.2s;
-    position: relative;
-
-    &:hover {
-      color: #7c6fb0;
-      background: rgba(124, 111, 176, 0.05);
-    }
-
-    &.active {
-      color: #7c6fb0;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -15px;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: #7c6fb0;
-      }
-    }
-  }
-}
-
-// Actions utilisateur
-.user-actions {
+.btn-profile {
+  background: none;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  cursor: pointer;
+  color: #555;
+  transition: border-color 0.2s, color 0.2s;
 
-  .user-name {
-    color: #555;
-    font-size: 14px;
-    font-weight: 500;
+  &:hover {
+    border-color: $purple;
+    color: $purple;
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #1a1a1a;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  &.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  &.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  &.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 16px 24px;
+  gap: 20px;
+  border-top: 1px solid #f0f0f0;
+
+  .nav-link {
+    font-size: 16px;
   }
 
   .btn-logout {
-    padding: 8px 16px;
-    background: transparent;
-    color: #7c6fb0;
-    border: 1px solid #7c6fb0;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s;
-
-    &:hover {
-      background: #7c6fb0;
-      color: white;
-    }
+    font-size: 16px;
   }
 }
 
-// Responsive
+.btn-profile-mobile {
+  background: none;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #555;
+  transition: border-color 0.2s, color 0.2s;
+
+  &:hover {
+    border-color: $purple;
+    color: $purple;
+  }
+}
+
 @media (max-width: 768px) {
-  .header-content {
-    padding: 12px 20px;
-    flex-wrap: wrap;
-  }
-
   .nav-menu {
-    order: 3;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 15px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #eee;
-    overflow-x: auto;
-    
-    .nav-link {
-      white-space: nowrap;
-      
-      &.active::after {
-        bottom: -12px;
-      }
-    }
+    display: none;
   }
 
-  .user-actions {
-    .user-name {
-      display: none;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .logo .logo-text {
-    font-size: 24px;
+  .burger {
+    display: flex;
   }
 
-  .nav-menu {
-    gap: 10px;
-    
-    .nav-link {
-      font-size: 14px;
-      padding: 6px 10px;
-    }
+  .mobile-menu {
+    display: flex;
   }
 }

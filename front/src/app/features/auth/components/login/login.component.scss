@@ -1,106 +1,86 @@
+$purple: #7C3AED;
+$purple-dark: #6D28D9;
+$error: #dc3545;
+
 .login-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f5f5f5;
+  background: #ffffff;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  color: #333;
+  transition: color 0.2s;
+  width: fit-content;
+
+  &:hover {
+    color: $purple;
+  }
+
+  svg {
+    display: block;
+  }
 }
 
 .navigation-button {
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: opacity 0.2s;
+  padding: 16px 24px;
+  color: #333;
+  transition: color 0.2s;
+  width: fit-content;
 
   &:hover {
-    opacity: 0.4;
+    color: $purple;
+    opacity: 1;
   }
 }
 
-.register-header {
-  background: white;
-  border-bottom: 2px solid #00BCD4;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-  .back-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #333;
-    transition: color 0.2s;
-
-    &:hover {
-      color: #7c6fb0;
-    }
-
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-  }
-
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    .logo-bubble-small {
-      width: 32px;
-      height: 32px;
-      background: #7c6fb0;
-      border-radius: 50%;
-    }
-
-    .logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-      background: #7c6fb0;
-      padding: 4px 12px;
-      border-radius: 20px;
-    }
-  }
-}
-// Contenu principal centré
 .login-content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  padding: 20px 20px 40px;
 }
 
 .login-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 40px;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 32px 0;
     text-align: center;
-    color: #333;
-    margin-bottom: 40px;
-    font-weight: 500;
-    font-size: 20px;
+  }
+
+  form {
+    width: 100%;
   }
 }
 
 .form-group {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 
   label {
     display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: 400;
+    margin-bottom: 6px;
+    color: #1a1a1a;
     font-size: 13px;
+    font-weight: 400;
   }
 }
 
@@ -108,41 +88,34 @@
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 14px;
+  font-family: inherit;
   transition: border-color 0.2s;
   box-sizing: border-box;
   background: white;
 
   &:focus {
     outline: none;
-    border-color: #7c6fb0;
-    box-shadow: 0 0 0 2px rgba(124, 111, 176, 0.1);
+    border-color: $purple;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
   }
 
   &.is-invalid {
-    border-color: #dc3545;
-
-    &:focus {
-      box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
-    }
-  }
-
-  &::placeholder {
-    color: #999;
+    border-color: $error;
   }
 }
 
 .invalid-feedback {
   display: block;
-  color: #dc3545;
+  color: $error;
   font-size: 12px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .alert {
-  padding: 12px 15px;
-  border-radius: 4px;
+  padding: 12px 14px;
+  border-radius: 6px;
   margin-bottom: 20px;
   font-size: 13px;
 
@@ -156,18 +129,19 @@
 .btn {
   padding: 12px 24px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: inherit;
+  transition: background 0.2s;
 
   &.btn-primary {
-    background: #7c6fb0;
+    background: $purple;
     color: white;
 
     &:hover:not(:disabled) {
-      background: #6b5e9a;
+      background: $purple-dark;
     }
 
     &:disabled {
@@ -191,33 +165,19 @@
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
   margin-right: 8px;
+  vertical-align: middle;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-.text-center {
-  text-align: center;
-}
-
-.mt-3 {
-  margin-top: 1.5rem;
-}
-
-a {
-  color: #7c6fb0;
-  text-decoration: none;
-  font-weight: 500;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-// Responsive
 @media (max-width: 480px) {
-  .login-card {
-    padding: 30px 24px;
+  .navigation-button {
+    padding: 12px 16px;
+  }
+
+  .login-card h2 {
+    font-size: 20px;
   }
 }

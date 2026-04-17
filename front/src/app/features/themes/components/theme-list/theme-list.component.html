@@ -1,1 +1,23 @@
-<p>theme-list works!</p>
+<div class="theme-list-container">
+  <app-header [showMenu]="true"></app-header>
+
+  <div class="page-content">
+    <div *ngIf="isLoading" class="state-message">Chargement...</div>
+    <div *ngIf="error" class="state-message error">{{ error }}</div>
+
+    <div *ngIf="!isLoading && !error" class="themes-grid">
+      <div class="theme-card" *ngFor="let theme of themes">
+        <h3 class="card-title">{{ theme.name }}</h3>
+        <p class="card-description">{{ theme.description }}</p>
+        <button
+          class="btn"
+          [class.btn-primary]="!isSubscribed(theme.id)"
+          [class.btn-subscribed]="isSubscribed(theme.id)"
+          (click)="toggleSubscription(theme.id)"
+        >
+          {{ isSubscribed(theme.id) ? 'Déjà abonné' : 'S\'abonner' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

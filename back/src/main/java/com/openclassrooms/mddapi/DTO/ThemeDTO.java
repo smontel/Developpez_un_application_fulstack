@@ -14,4 +14,5 @@ public class ThemeDTO {
 
     private String name;
 
+    private String description;
 }

@@ -69,7 +69,7 @@ export class AuthService {
   logout(): void {
     this.tokenService.clearToken();
     this.currentUserSubject.next(null);
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/auth']);
   }
 
 

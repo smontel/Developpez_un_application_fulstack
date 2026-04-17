@@ -1,37 +1,53 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ArticleList } from 'src/app/shared/models/article.model';
 import { ArticleService } from 'src/app/core/services/article.service';
+
 @Component({
   selector: 'app-article-list',
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })
 export class ArticleListComponent implements OnInit {
-  isLoading: boolean = false;
+  isLoading = false;
   error: string | null = null;
-  articles: ArticleList[] = []
-  constructor(private ArticleService: ArticleService) { }
+  articles: ArticleList[] = [];
+  sortAsc = false;
+
+  constructor(private articleService: ArticleService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadArticles();
   }
 
-    //Fonction de récupération des articles
-  loadArticles():void{
+  loadArticles(): void {
     this.isLoading = true;
     this.error = null;
-
-    this.ArticleService.getArticles().subscribe({
-      next: (data)=>{
+    this.articleService.getArticles().subscribe({
+      next: (data) => {
         this.articles = data;
-        console.log('Articles récupérés:', data);
         this.isLoading = false;
       },
-      error:(err)=>{
-        console.error('Erreur lors de la récupération des articles', err);
+      error: () => {
         this.error = 'Impossible de récupérer les articles';
         this.isLoading = false;
       }
-    })
+    });
+  }
+
+  get sortedArticles(): ArticleList[] {
+    return [...this.articles].sort((a, b) => {
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+      return this.sortAsc ? dateA - dateB : dateB - dateA;
+    });
+  }
+
+  toggleSort(): void {
+    this.sortAsc = !this.sortAsc;
+  }
+
+  goToArticle(id: number): void {
+    this.router.navigate(['/articles', id]);
   }
 }

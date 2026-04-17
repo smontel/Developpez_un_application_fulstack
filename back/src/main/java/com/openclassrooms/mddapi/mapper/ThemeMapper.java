@@ -15,6 +15,7 @@ public class ThemeMapper {
         ThemeDTO dto = new ThemeDTO();
         dto.setId(theme.getId());
         dto.setName(theme.getName());
+        dto.setDescription(theme.getDescription());
 
         return dto;
     }

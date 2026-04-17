@@ -1,1 +1,26 @@
-<p>article-list works!</p>
+<div class="article-list-container">
+  <app-header [showMenu]="true"></app-header>
+
+  <div class="page-content">
+    <div class="toolbar">
+      <button class="btn btn-primary" routerLink="/articles/create">Créer un article</button>
+      <div class="sort-control" (click)="toggleSort()">
+        <span>Trier par</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="state-message">Chargement...</div>
+    <div *ngIf="error" class="state-message error">{{ error }}</div>
+
+    <div *ngIf="!isLoading && !error" class="articles-grid">
+      <app-article-card
+        *ngFor="let article of sortedArticles"
+        [article]="article"
+        (click)="goToArticle(article.id)"
+      ></app-article-card>
+    </div>
+  </div>
+</div>

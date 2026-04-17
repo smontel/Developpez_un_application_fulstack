@@ -8,7 +8,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Input() showMenu = false; // Affiche le menu si l'utilisateur est connecté
+  @Input() showMenu = false;
+  mobileMenuOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -29,5 +30,9 @@ export class HeaderComponent {
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 }
