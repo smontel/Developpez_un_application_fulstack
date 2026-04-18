@@ -23,3 +23,10 @@ export interface ArticleRegister {
   content: string;
   theme_ids: number[];
 }
+
+export interface Commentary {
+  id: number;
+  message: string;
+  authorName: string;
+  createdAt: string;
+}
