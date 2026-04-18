@@ -1,0 +1,44 @@
+.article-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.article-themes {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.theme-tag {
+  background: #ede9fe;
+  color: #7C3AED;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.article-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+.article-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.article-content {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+  white-space: pre-wrap;
+}

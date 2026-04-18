@@ -1,1 +1,13 @@
-<p>article-detail works!</p>
+<app-header></app-header>
+
+<div class="article-detail-container">
+  <button class="btn-back" (click)="goBack()">&#8592;</button>
+
+  <div *ngIf="isLoading">Chargement...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <ng-container *ngIf="article && !isLoading">
+    <app-article-detail-card [article]="article"></app-article-detail-card>
+    <app-comment-section [articleId]="article.id" [comments]="article.commentaries"></app-comment-section>
+  </ng-container>
+</div>

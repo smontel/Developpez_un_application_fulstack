@@ -1,0 +1,14 @@
+<div class="article-card">
+  <div class="article-themes">
+    <span class="theme-tag" *ngFor="let theme of article.themes">{{ theme.name }}</span>
+  </div>
+
+  <h1 class="article-title">{{ article.title }}</h1>
+
+  <div class="article-meta">
+    <span>{{ article.authorName }}</span>
+    <span>{{ article.createdAt | date:'dd/MM/yyyy' }}</span>
+  </div>
+
+  <p class="article-content">{{ article.content }}</p>
+</div>

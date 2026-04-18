@@ -12,11 +12,10 @@ export interface ArticleDetail {
   id: number;
   title: string;
   content: string;
+  authorName: string;
   themes: { id: number; name: string }[];
-  author_name: string;
-  commentaries: { id: number; message: string; author_name: string; created_at: string }[];
-  created_at: string;
-  updated_at: string;
+  commentaries: { id: number; authorName: string; message: string; createdAt: string }[];
+  createdAt: string;
 }
 
 export interface ArticleRegister {

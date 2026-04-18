@@ -8,6 +8,8 @@ import { ArticleListComponent } from './components/article-list/article-list.com
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
 import { ArticleCreationComponent } from './components/article-creation/article-creation.component';
+import { ArticleDetailCardComponent } from './components/article-detail/article-detail-card/article-detail-card.component';
+import { CommentSectionComponent } from './components/article-detail/comment-section/comment-section.component';
 
 const routes: Routes = [
   { path: '', component: ArticleListComponent },
@@ -20,7 +22,9 @@ const routes: Routes = [
     ArticleListComponent,
     ArticleCardComponent,
     ArticleDetailComponent,
-    ArticleCreationComponent
+    ArticleCreationComponent,
+    ArticleDetailCardComponent,
+    CommentSectionComponent
   ],
   imports: [
     CommonModule,
