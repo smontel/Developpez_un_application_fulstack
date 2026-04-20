@@ -1,0 +1,75 @@
+.creation-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: #1a1a1a;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  input, select, textarea {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #333;
+
+    &:focus {
+      outline: none;
+      border-color: #7C3AED;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.btn-submit {
+  background: #7C3AED;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  float: right;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
