@@ -1,1 +1,53 @@
-<p>profile works!</p>
+<app-header [showMenu]="true"></app-header>
+
+<div class="profile-container">
+  <h1 class="page-title">Profil</h1>
+
+  <form class="profile-form" [formGroup]="profileForm">
+
+    <div class="form-group">
+      <label>Nom d'utilisateur</label>
+      <input type="text" formControlName="username" />
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+    </div>
+
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" formControlName="password" placeholder="Nouveau mot de passe" />
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+
+    <button
+       type="submit"
+       class="btn-save"
+       [disabled]="profileForm.invalid || isSubmitting">
+       {{ isSubmitting ? 'Sauvegarde...' : 'Sauvegarder' }}
+    </button>
+
+  </form>
+
+  <div class="subscriptions">
+    <h2>Mes abonnements</h2>
+
+    <p *ngIf="subscribedThemes.length === 0" class="no-subs">
+      Vous n'êtes abonné à aucun thème.
+    </p>
+
+    <div class="theme-list">
+      <div class="theme-item" *ngFor="let theme of subscribedThemes">
+        <span class="theme-name">{{ theme.name }}</span>
+        <button class="btn-unsubscribe" (click)="unsubscribe(theme.id)">
+          Se désabonner
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-logout" (click)="logout()">Se déconnecter</button>
+</div>

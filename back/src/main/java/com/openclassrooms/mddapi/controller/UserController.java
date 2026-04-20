@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.DTO.auth.UserDTO;
+import com.openclassrooms.mddapi.DTO.auth.UserUpdateDTO;
 import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
@@ -8,6 +9,7 @@ import com.openclassrooms.mddapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +44,18 @@ public class UserController {
 
     }
 
+    @PutMapping("/user/{id}")
+    @SecurityRequirement(name="bearerAuth")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO dto, Principal principal){
+        User currentUser = userService.getUserByMail(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!currentUser.getId().equals(id)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        UserDTO updated = userService.updateUser(id, dto);
+        return ResponseEntity.ok(updated);
+    }
 
 }

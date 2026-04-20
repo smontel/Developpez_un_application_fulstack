@@ -1,1 +1,11 @@
-<p>theme-card works!</p>
+<div class="theme-card">
+  <h3 class="card-title">{{ theme.name }}</h3>
+  <p class="card-description">{{ theme.description }}</p>
+  <button
+    class="btn"
+    [class.btn-primary]="!isSubscribed"
+    [class.btn-subscribed]="isSubscribed"
+    (click)="onToggle()">
+    {{ isSubscribed ? 'Déjà abonné' : 'S\'abonner' }}
+  </button>
+</div>

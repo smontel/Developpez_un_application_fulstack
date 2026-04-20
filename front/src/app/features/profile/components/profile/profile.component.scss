@@ -1,0 +1,143 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  input {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 15px;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #7C3AED;
+    }
+  }
+}
+
+.btn-save {
+  align-self: center;
+  background: #7C3AED;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.subscriptions {
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+  }
+}
+
+.theme-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.theme-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+.btn-unsubscribe {
+  background: none;
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #fff5f5;
+  }
+}
+
+.no-subs {
+  color: #aaa;
+  font-style: italic;
+}
+
+.btn-logout {
+  display: block;
+  width: 100%;
+  background: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  color: #e53e3e;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    background: #fff5f5;
+  }
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 13px;
+}
+
+.success {
+  color: #38a169;
+  font-size: 13px;
+}
