@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
     this.user = this.authService.currentUserValue;
 
     this.profileForm = this.fb.group({
-      username: [this.user?.username || '', [Validators.required, Validators.minLength(3)]],
+      name: [this.user?.name || '', [Validators.required, Validators.minLength(3)]],
       email: [this.user?.email || '', [Validators.required, Validators.email]],
       password: ['', Validators.minLength(6)]
     });
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
     this.successMessage = null;
 
     const payload: any = {
-      name: this.profileForm.value.username,
+      name: this.profileForm.value.name,
       email: this.profileForm.value.email
     };
 
@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
         this.successMessage = 'Profil mis à jour avec succès';
         this.isSubmitting = false;
         this.profileForm.get('password')?.reset();
+        
       },
       error: () => {
         this.error = 'Erreur lors de la mise à jour du profil';
@@ -71,9 +72,10 @@ export class ProfileComponent implements OnInit {
   unsubscribe(themeId: number): void {
     if (!this.user) return;
 
-    this.themeService.subscribeToTheme(this.user.id, themeId).subscribe({
+    this.themeService.subscribeToTheme(themeId).subscribe({
       next: () => {
         this.subscribedThemes = this.subscribedThemes.filter(t => t.id !== themeId);
+        this.authService.refreshCurrentUser();
       },
       error: () => {
         this.error = 'Erreur lors du désabonnement';

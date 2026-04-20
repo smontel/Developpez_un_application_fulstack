@@ -3,11 +3,11 @@
 <div class="profile-container">
   <h1 class="page-title">Profil</h1>
 
-  <form class="profile-form" [formGroup]="profileForm">
+  <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="save()">
 
     <div class="form-group">
       <label>Nom d'utilisateur</label>
-      <input type="text" formControlName="username" />
+      <input type="text" formControlName="name" />
     </div>
 
     <div class="form-group">

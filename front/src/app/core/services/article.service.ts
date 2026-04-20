@@ -24,6 +24,6 @@ export class ArticleService{
   }
 
   createArticle(payload: { title: string; content: string; theme_ids: number[] }): Observable<any> {
-    return this.http.post(`${this.API_URL}`, payload);
+    return this.http.post(`${this.API_URL}`, payload, {responseType: 'text'});
   }
 }

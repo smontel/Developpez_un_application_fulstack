@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(this.registerForm.value).subscribe({
       next: (response) => {
-        console.log('Registration successful', response);
+        console.log('Register réussi', response);
         this.router.navigate(['/']);
       },
       error: (error) => {

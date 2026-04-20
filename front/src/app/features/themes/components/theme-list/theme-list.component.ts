@@ -54,13 +54,14 @@ export class ThemeListComponent implements OnInit {
     const user = this.authService.currentUserValue;
     if (!user) return;
 
-    this.themeService.subscribeToTheme(user.id, themeId).subscribe({
+    this.themeService.subscribeToTheme(themeId).subscribe({
       next: () => {
         if (this.isSubscribed(themeId)) {
           this.subscribedThemeIds = this.subscribedThemeIds.filter(id => id !== themeId);
         } else {
           this.subscribedThemeIds = [...this.subscribedThemeIds, themeId];
         }
+        this.authService.refreshCurrentUser();
       },
       error: () => {
         this.error = 'Erreur lors de la mise à jour de l\'abonnement';

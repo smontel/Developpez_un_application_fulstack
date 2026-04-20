@@ -15,7 +15,7 @@ export class ThemeService {
     return this.http.get<Theme[]>(`${this.API_URL}/themes`);
   }
 
-  subscribeToTheme(userId: number, themeId: number): Observable<string> {
-    return this.http.post<string>(`${this.API_URL}/users/${userId}/themes/${themeId}/subscribe`, {});
+  subscribeToTheme( themeId: number): Observable<string> {
+    return this.http.post<string>(`${this.API_URL}/subscribe/${themeId}`, {}, { responseType: 'text' as 'json' });
   }
 }

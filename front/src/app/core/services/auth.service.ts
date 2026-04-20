@@ -97,4 +97,17 @@ export class AuthService {
     }
     
   }
+
+  public refreshCurrentUser(): void {
+  this.http.get<User>(`${this.API_URL}/me`)
+    .pipe(
+      catchError(error => {
+        this.logout();
+        return throwError(() => error);
+      })
+    )
+    .subscribe(user => {
+      this.currentUserSubject.next(user);
+    });
+}
 }
