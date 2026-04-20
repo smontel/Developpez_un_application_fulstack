@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
 
     private Long id;
-
+    @JsonProperty("name")
     private String name;
 
     private String email;

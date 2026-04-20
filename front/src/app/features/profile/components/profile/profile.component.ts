@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
         this.successMessage = 'Profil mis à jour avec succès';
         this.isSubmitting = false;
         this.profileForm.get('password')?.reset();
-        
+        this.authService.refreshCurrentUser()
       },
       error: () => {
         this.error = 'Erreur lors de la mise à jour du profil';

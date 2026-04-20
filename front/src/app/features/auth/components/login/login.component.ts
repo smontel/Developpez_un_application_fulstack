@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         console.log('Login réussi', response);
         this.router.navigate(['/']);
+        this.authService.refreshCurrentUser();
       },
       error: (error) => {
         console.error('Login error', error);
