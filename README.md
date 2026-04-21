@@ -39,13 +39,13 @@ Avant de lancer le back, définis ces variables dans ton terminal :
 
 ```bash
 export DB_PASSWORD=root
-export JWT_SECRET=une_clé_secrète_longue_et_aléatoire
+export JWT_SECRET=4892194698a9f66692b1fb5a8bf2280f45f0235f
 ```
 
 > Sur Windows (PowerShell) :
 > ```powershell
 > $env:DB_PASSWORD="root"
-> $env:JWT_SECRET="une_clé_secrète_longue_et_aléatoire"
+> $env:JWT_SECRET="4892194698a9f66692b1fb5a8bf2280f45f0235f"
 > ```
 
 **Description des variables :**
