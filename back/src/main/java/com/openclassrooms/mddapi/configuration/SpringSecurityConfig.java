@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.configuration;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.openclassrooms.mddapi.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -76,7 +77,8 @@ public class SpringSecurityConfig {
         return source;
     }
 
-    private String jwtKey = "4892194698a9f66692b1fb5a8bf2280f45f0235f";
+    @Value("${spring.security.jwt.secret}")
+    private String jwtKey;
 
     @Bean
     public JwtDecoder jwtDecoder() {
