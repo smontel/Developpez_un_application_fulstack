@@ -1,26 +1,105 @@
-# P6-Full-Stack-reseau-dev
+# MDD - Réseau Social Développeurs
 
-## Front
+## Prérequis
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+- **Node.js** v16+ et **npm**
+- **Java 17**
+- **Maven**
+- **MySQL 8**
 
-Don't forget to install your node_modules before starting (`npm install`).
+---
 
-### Development server
+## 1. Base de données
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Créer la base et importer les données
 
-### Build
+Connecte-toi à MySQL et exécute le script SQL fourni :
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+mysql -u root -p < back/ressources/mdd_db.sql
+```
 
-### Where to start
+Cela va créer la base `mdd_db`, toutes les tables, et insérer des données de test.
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+**Comptes de test disponibles après import :**
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+| Email | Mot de passe |
+|---|---|
+| alice@example.com | password123 |
+| bob@example.com | password123 |
+| charlie@example.com | password123 |
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+---
 
-Good luck!
-# Developpez_un_application_fulstack
+## 2. Backend (Spring Boot)
+
+### Prérequis : définir les variables d'environnement
+
+Avant de lancer le back, définis ces variables dans ton terminal :
+
+```bash
+export DB_PASSWORD=root
+export JWT_SECRET=une_clé_secrète_longue_et_aléatoire
+```
+
+> Sur Windows (PowerShell) :
+> ```powershell
+> $env:DB_PASSWORD="root"
+> $env:JWT_SECRET="une_clé_secrète_longue_et_aléatoire"
+> ```
+
+**Description des variables :**
+
+| Variable | Description | Valeur par défaut |
+|---|---|---|
+| `DB_PASSWORD` | Mot de passe MySQL | aucune (obligatoire) |
+| `JWT_SECRET` | Clé secrète pour signer les tokens JWT | aucune (obligatoire) |
+| `DB_URL` | URL de la base de données | `jdbc:mysql://localhost:3306/mdd_db` |
+| `DB_USERNAME` | Nom d'utilisateur MySQL | `root` |
+
+### Lancer le backend
+
+```bash
+cd back
+mvn spring-boot:run
+```
+
+L'API est disponible sur : **http://localhost:3001/api**
+
+La documentation Swagger est accessible sur : **http://localhost:3001/api/swagger-ui/index.html**
+
+---
+
+## 3. Frontend (Angular)
+
+### Installer les dépendances
+
+```bash
+cd front
+npm install
+```
+
+### Lancer le frontend
+
+```bash
+ng serve
+```
+
+L'application est disponible sur : **http://localhost:4200**
+
+---
+
+## Récapitulatif — lancer le projet complet
+
+```bash
+# Terminal 1 — Backend
+cd back
+export DB_PASSWORD=root
+export JWT_SECRET=une_clé_secrète_longue_et_aléatoire
+mvn spring-boot:run
+
+# Terminal 2 — Frontend
+cd front
+npm install
+ng serve
+```
