@@ -48,9 +48,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public boolean registerUser(String email, String password, String name){
 
+
         if (userRepository.findByEmail(email).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email déjà utilisé");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cette adresse email est déjà utilisée");
         }
+
+        if (userRepository.findByName(name).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ce nom d'utilisateur est déjà pris");
+        }
+
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setName(name);

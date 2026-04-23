@@ -25,14 +25,19 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else {
           switch (error.status) {
             case 401:
-              errorMessage = 'Session expirée. Veuillez vous reconnecter.';
-              this.authService.logout();
+              if (!request.url.includes('/auth/register') && !request.url.includes('/auth/login')) {
+                this.authService.logout();
+              }
+              errorMessage = error.error?.message || 'Non autorisé.';
               break;
             case 403:
               errorMessage = 'Accès refusé. Vous n\'avez pas les permissions nécessaires.';
               break;
             case 404:
               errorMessage = 'Ressource non trouvée.';
+              break;
+            case 409:
+              errorMessage = error.error?.message || 'Conflit avec les données existantes.';
               break;
             case 500:
               errorMessage = 'Erreur serveur. Veuillez réessayer plus tard.';

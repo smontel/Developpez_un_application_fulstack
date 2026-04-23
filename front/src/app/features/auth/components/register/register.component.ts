@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -9,11 +10,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   loading = false;
   submitted = false;
   errorMessage = '';
+
+  private subscriptions = new Subscription();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +33,10 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // Getter pour faciliter l'accès aux champs du formulaire
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   get f() {
     return this.registerForm.controls;
   }
@@ -43,27 +49,25 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.errorMessage = '';
 
-    // Arrête si le formulaire est invalide
     if (this.registerForm.invalid) {
       return;
     }
 
     this.loading = true;
 
-    this.authService.register(this.registerForm.value).subscribe({
-      next: (response) => {
-        console.log('Register réussi', response);
-        this.router.navigate(['/']);
-        this.authService.refreshCurrentUser();
-      },
-      error: (error) => {
-        console.error('Registration error', error);
-        this.errorMessage = error.message || 'Échec de l\'inscription. Veuillez réessayer.';
-        this.loading = false;
-      },
-      complete: () => {
-        this.loading = false;
-      }
-    });
+    this.subscriptions.add(
+      this.authService.register(this.registerForm.value).subscribe({
+        next: (response) => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.errorMessage = error.error.message || 'Échec de l\'inscription. Veuillez réessayer.';
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      })
+    );
   }
 }

@@ -10,6 +10,7 @@ import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.CustomUserDetailsService;
 import com.openclassrooms.mddapi.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +24,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import com.openclassrooms.mddapi.service.JWTService;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -65,20 +68,28 @@ public class AuthController {
     @PostMapping("/register")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Inscription réussie"),
-            @ApiResponse(responseCode = "400", description = "Données invalides")
+            @ApiResponse(responseCode = "409", description = "Email ou nom déjà utilisé")
     })
-    public TokenDTO register(@RequestBody RegisterDTO registerDTO) throws ResponseStatusException{
-        TokenDTO token = new TokenDTO();
-        String email = registerDTO.getEmail();
-        String password = registerDTO.getPassword();
-        String name = registerDTO.getName();
-        customUserDetailsService.registerUser(email, password, name);
-        LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setEmail(email);
+    public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
+        try {
+            customUserDetailsService.registerUser(
+                    registerDTO.getEmail(),
+                    registerDTO.getPassword(),
+                    registerDTO.getName()
+            );
+        } catch (ResponseStatusException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("message", ex.getReason());
+            return ResponseEntity.status(ex.getStatusCode()).body(error);
+        }
 
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setEmail(registerDTO.getEmail());
+        TokenDTO token = new TokenDTO();
         token.setToken(jwtService.generateToken(loginDTO));
-        return token;
+        return ResponseEntity.ok(token);
     }
+
 
     @GetMapping("/me")
     @Operation(summary = "Profil utilisateur", description = "Récupère les informations de l'utilisateur connecté")
