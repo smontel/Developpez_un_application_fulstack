@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ArticleList } from 'src/app/shared/models/article.model';
 import { ArticleService } from 'src/app/core/services/article.service';
 
@@ -8,11 +9,13 @@ import { ArticleService } from 'src/app/core/services/article.service';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })
-export class ArticleListComponent implements OnInit {
+export class ArticleListComponent implements OnInit, OnDestroy {
   isLoading = false;
   error: string | null = null;
   articles: ArticleList[] = [];
   sortAsc = false;
+
+  private subscriptions = new Subscription();
 
   constructor(private articleService: ArticleService, private router: Router) {}
 
@@ -20,19 +23,25 @@ export class ArticleListComponent implements OnInit {
     this.loadArticles();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   loadArticles(): void {
     this.isLoading = true;
     this.error = null;
-    this.articleService.getArticles().subscribe({
-      next: (data) => {
-        this.articles = data;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.error = 'Impossible de récupérer les articles';
-        this.isLoading = false;
-      }
-    });
+    this.subscriptions.add(
+      this.articleService.getArticles().subscribe({
+        next: (data) => {
+          this.articles = data;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.error = 'Impossible de récupérer les articles';
+          this.isLoading = false;
+        }
+      })
+    );
   }
 
   get sortedArticles(): ArticleList[] {

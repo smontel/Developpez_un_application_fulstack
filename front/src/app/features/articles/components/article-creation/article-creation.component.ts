@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ArticleService } from 'src/app/core/services/article.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { Theme } from 'src/app/shared/models/theme.model';
@@ -10,11 +11,13 @@ import { Theme } from 'src/app/shared/models/theme.model';
   templateUrl: './article-creation.component.html',
   styleUrls: ['./article-creation.component.scss']
 })
-export class ArticleCreationComponent implements OnInit {
+export class ArticleCreationComponent implements OnInit, OnDestroy {
   articleForm!: FormGroup;
   themes: Theme[] = [];
   isSubmitting = false;
   error: string | null = null;
+
+  private subscriptions = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -30,10 +33,16 @@ export class ArticleCreationComponent implements OnInit {
       content: ['', Validators.required]
     });
 
-    this.themeService.getThemes().subscribe({
-      next: (data) => this.themes = data,
-      error: () => this.error = 'Impossible de charger les thèmes'
-    });
+    this.subscriptions.add(
+      this.themeService.getThemes().subscribe({
+        next: (data) => this.themes = data,
+        error: () => this.error = 'Impossible de charger les thèmes'
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   goBack(): void {
@@ -52,12 +61,14 @@ export class ArticleCreationComponent implements OnInit {
       theme_ids: [Number(this.articleForm.value.theme_ids)]
     };
 
-    this.articleService.createArticle(payload).subscribe({
-      next: () => this.router.navigate(['/articles']),
-      error: () => {
-        this.error = 'Erreur lors de la création de l\'article';
-        this.isSubmitting = false;
-      }
-    });
+    this.subscriptions.add(
+      this.articleService.createArticle(payload).subscribe({
+        next: () => this.router.navigate(['/articles']),
+        error: () => {
+          this.error = 'Erreur lors de la création de l\'article';
+          this.isSubmitting = false;
+        }
+      })
+    );
   }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Theme } from 'src/app/shared/models/theme.model';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -8,11 +9,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './theme-list.component.html',
   styleUrls: ['./theme-list.component.scss']
 })
-export class ThemeListComponent implements OnInit {
+export class ThemeListComponent implements OnInit, OnDestroy {
   themes: Theme[] = [];
   subscribedThemeIds: number[] = [];
   isLoading = false;
   error: string | null = null;
+
+  private subscriptions = new Subscription();
 
   constructor(
     private themeService: ThemeService,
@@ -24,19 +27,25 @@ export class ThemeListComponent implements OnInit {
     this.loadThemes();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   loadThemes(): void {
     this.isLoading = true;
     this.error = null;
-    this.themeService.getThemes().subscribe({
-      next: (data) => {
-        this.themes = data;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.error = 'Impossible de récupérer les thèmes';
-        this.isLoading = false;
-      }
-    });
+    this.subscriptions.add(
+      this.themeService.getThemes().subscribe({
+        next: (data) => {
+          this.themes = data;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.error = 'Impossible de récupérer les thèmes';
+          this.isLoading = false;
+        }
+      })
+    );
   }
 
   loadSubscribedThemes(): void {
@@ -54,18 +63,20 @@ export class ThemeListComponent implements OnInit {
     const user = this.authService.currentUserValue;
     if (!user) return;
 
-    this.themeService.subscribeToTheme(themeId).subscribe({
-      next: () => {
-        if (this.isSubscribed(themeId)) {
-          this.subscribedThemeIds = this.subscribedThemeIds.filter(id => id !== themeId);
-        } else {
-          this.subscribedThemeIds = [...this.subscribedThemeIds, themeId];
+    this.subscriptions.add(
+      this.themeService.subscribeToTheme(themeId).subscribe({
+        next: () => {
+          if (this.isSubscribed(themeId)) {
+            this.subscribedThemeIds = this.subscribedThemeIds.filter(id => id !== themeId);
+          } else {
+            this.subscribedThemeIds = [...this.subscribedThemeIds, themeId];
+          }
+          this.authService.refreshCurrentUser();
+        },
+        error: () => {
+          this.error = 'Erreur lors de la mise à jour de l\'abonnement';
         }
-        this.authService.refreshCurrentUser();
-      },
-      error: () => {
-        this.error = 'Erreur lors de la mise à jour de l\'abonnement';
-      }
-    });
+      })
+    );
   }
 }
